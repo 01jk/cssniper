@@ -1,0 +1,12 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "export PATH=$HOME/.cargo/bin:$PATH && if ! command -v rustup >/dev/null 2>&1; then RUSTUP_INIT_SKIP_PATH_CHECK=yes curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal; export PATH=$HOME/.cargo/bin:$PATH; fi && rustup toolchain install 1.86.0 --profile minimal && cd sn1perb0t111-main && npm ci --prefer-offline --no-audit && npm run build && cd ../rust-core && rustup run 1.86.0 cargo build --release --locked"
+  },
+  "deploy": {
+    "startCommand": "cd rust-core && ./target/release/rust-core",
+    "healthcheckPath": "/api/auth/status",
+    "healthcheckTimeout": 120
+  }
+}

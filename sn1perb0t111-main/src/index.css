@@ -1,0 +1,1260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes bidHoldFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@layer base {
+  :root {
+    /* Cyberpunk Financial Theme - Deep Dark with Electric Accents */
+    --background: 222 47% 4%;
+    --foreground: 215 20% 90%;
+
+    --card: 222 47% 7%;
+    --card-foreground: 215 20% 90%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 215 20% 90%;
+
+    /* Primary Action - Electric Indigo */
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary/Surface - Slate Grey */
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 215 20% 85%;
+
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 60%;
+
+    /* Success - Emerald Green */
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive - Rose Red */
+    --destructive: 347 77% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 33% 20%;
+    --input: 222 47% 3%;
+    --ring: 239 84% 67%;
+
+    --radius: 0.5rem;
+
+    /* Custom colors for CS:Float style */
+    --cs-orange: 25 95% 53%;
+    --cs-green: 160 84% 39%;
+    --cs-red: 347 77% 50%;
+    --cs-gray: 215 20% 55%;
+    --cs-purple: 270 60% 55%;
+    --cs-yellow: 45 93% 58%;
+
+    /* Wear gradient colors */
+    --wear-fn: 160 84% 39%;
+    --wear-mw: 80 60% 50%;
+    --wear-ft: 45 93% 58%;
+    --wear-ww: 25 95% 53%;
+    --wear-bs: 347 77% 50%;
+
+    --sidebar-background: 222 47% 3%;
+    --sidebar-foreground: 215 20% 85%;
+    --sidebar-primary: 239 84% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 12%;
+    --sidebar-accent-foreground: 215 20% 90%;
+    --sidebar-border: 217 33% 15%;
+    --sidebar-ring: 239 84% 67%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .wear-gradient {
+    background: linear-gradient(90deg,
+        hsl(142 70% 35%) 0%, hsl(142 70% 35%) 7%,
+        hsl(82 75% 45%) 7%, hsl(82 75% 45%) 15%,
+        hsl(65 80% 50%) 15%, hsl(65 80% 50%) 38%,
+        hsl(25 90% 50%) 38%, hsl(25 90% 50%) 45%,
+        hsl(0 70% 40%) 45%, hsl(0 70% 40%) 100%);
+  }
+
+  /* CS2 Fade gradient - realistic fade colors (yellow to pink/purple) */
+  .fade-gradient {
+    background: linear-gradient(90deg,
+        hsl(45 95% 55%) 0%,
+        /* Yellow/gold */
+        hsl(30 90% 55%) 20%,
+        /* Orange */
+        hsl(350 80% 60%) 50%,
+        /* Rose/coral */
+        hsl(330 75% 55%) 75%,
+        /* Pink/magenta */
+        hsl(290 70% 50%) 100%
+        /* Purple/violet */
+      );
+  }
+
+  /* CS2 Blue Gem gradient - Case Hardened blue pattern */
+  .blue-gradient {
+    background: linear-gradient(90deg,
+        hsl(210 100% 45%) 0%,
+        /* Vivid deep blue */
+        hsl(205 100% 55%) 25%,
+        /* Bright blue */
+        hsl(200 100% 65%) 50%,
+        /* Light blue */
+        hsl(195 100% 75%) 75%,
+        /* Sky blue */
+        hsl(190 100% 85%) 100%
+        /* Ice blue */
+      );
+  }
+
+  /* Price gradient - Emerald Green */
+  .price-gradient {
+    background: linear-gradient(90deg,
+        hsl(150 100% 30%) 0%,
+        hsl(142 70% 50%) 100%);
+  }
+
+  /* Stickers gradient - Green to Red (0% to 100%) */
+  .sticker-overpay-gradient {
+    background: linear-gradient(90deg,
+        hsl(142 70% 45%) 0%,
+        hsl(85 60% 50%) 40%,
+        hsl(45 90% 55%) 60%,
+        hsl(10 80% 55%) 100%);
+  }
+
+  /* Discount gradient - Red (bad/expensive) to Green (good/cheap) or vice versa? 
+     Usually discount +100% is GOOD (Green). But here it's "Discount / Overpay".
+     Overpay is Red? Discount is Green?
+     Let's assume Left = Min (-100%), Right = Max (+100%).
+     If -100% is "Good" (?) or is it Overpay?
+     Usually: Left Red (-100%??) -> Right Green (+100%).
+     Let's follow the image: Left Red, Right Green. */
+  .discount-gradient {
+    background: linear-gradient(90deg,
+        hsl(0 80% 60%) 0%,
+        hsl(142 70% 50%) 100%);
+  }
+
+  /* Charms gradient - Purple */
+  .charms-gradient {
+    background: linear-gradient(90deg,
+        hsl(260 60% 60%) 0%,
+        hsl(280 80% 70%) 100%);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.3);
+  }
+
+  .table-row-hover {
+    @apply transition-colors hover:bg-secondary/50;
+  }
+
+  .filter-section {
+    @apply border-b border-border pb-4 mb-4;
+  }
+
+  .range-track {
+    @apply h-1 rounded-full;
+  }
+
+  .chip {
+    @apply px-3 py-1 text-xs rounded-md border border-border bg-secondary/50 hover:bg-secondary hover:border-primary/50 transition-all cursor-pointer;
+  }
+
+  .chip-active {
+    @apply bg-primary/20 border-primary text-primary;
+  }
+
+  .status-running {
+    @apply bg-accent/20 text-accent border-accent;
+  }
+
+  .status-stopped {
+    @apply bg-destructive/20 text-destructive border-destructive;
+  }
+
+  /* Button glow effects */
+  .btn-primary-glow {
+    @apply shadow-lg transition-all duration-200;
+    box-shadow: 0 4px 14px 0 hsl(var(--primary) / 0.25);
+  }
+
+  .btn-primary-glow:hover {
+    box-shadow: 0 6px 20px 0 hsl(var(--primary) / 0.4);
+  }
+
+  .btn-destructive-glow:hover {
+    background-color: hsl(var(--destructive) / 0.1);
+  }
+
+  /* Action icon styling */
+  .action-icon-neutral {
+    @apply text-muted-foreground hover:text-foreground transition-colors;
+  }
+
+  .action-icon-destructive {
+    @apply text-destructive/70 hover:text-destructive hover:bg-destructive/10 transition-all;
+  }
+
+  /* Holo button effect - CS2 style purple holographic shimmer */
+  .holo-button-effect {
+    background: linear-gradient(135deg,
+        hsl(280 70% 50% / 0.4) 0%,
+        hsl(260 83% 58% / 0.5) 25%,
+        hsl(300 75% 65% / 0.6) 50%,
+        hsl(240 78% 65% / 0.5) 75%,
+        hsl(280 70% 50% / 0.4) 100%);
+    background-size: 200% 200%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(169, 85, 247, 0.3);
+  }
+
+  .holo-button-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(215, 150, 255, 0.35),
+        rgba(255, 200, 255, 0.45),
+        rgba(215, 150, 255, 0.35),
+        transparent);
+    animation: foil-shine 3.5s ease-in-out infinite;
+  }
+
+  .holo-button-effect:hover {
+    box-shadow: 0 0 14px rgba(168, 85, 247, 0.5), 0 0 20px rgba(192, 132, 252, 0.3);
+  }
+
+  .holo-button-effect:hover::before {
+    animation: foil-shine 1.8s ease-in-out infinite;
+  }
+
+  /* Foil button effect - Metallic silver shimmer */
+  .foil-button-effect {
+    background: linear-gradient(135deg,
+        hsl(220 10% 40% / 0.5) 0%,
+        hsl(220 15% 55% / 0.6) 30%,
+        hsl(220 20% 70% / 0.7) 50%,
+        hsl(220 15% 55% / 0.6) 70%,
+        hsl(220 10% 40% / 0.5) 100%);
+    background-size: 200% 200%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .foil-button-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        rgba(200, 210, 220, 0.5),
+        rgba(255, 255, 255, 0.4),
+        transparent);
+    animation: foil-shine 2.5s ease-in-out infinite;
+  }
+
+  .foil-button-effect:hover {
+    box-shadow: 0 0 10px rgba(148, 163, 184, 0.4), 0 0 16px rgba(203, 213, 225, 0.3);
+  }
+
+  .foil-button-effect:hover::before {
+    animation: foil-shine 1.2s ease-in-out infinite;
+  }
+
+  @keyframes foil-shine {
+    0% {
+      left: -100%;
+    }
+
+    50%,
+    100% {
+      left: 200%;
+    }
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+
+@keyframes toast-enter-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-exit-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(36px);
+  }
+}
+
+.toast-enter-bottom {
+  animation: toast-enter-bottom 0.3s ease-out both;
+}
+
+.toast-exit-right {
+  animation: toast-exit-right 0.32s ease-in forwards;
+}
+
+@keyframes notification-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-item-enter {
+  animation: notification-item-enter 0.3s ease-out both;
+}
+
+@keyframes notification-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes notification-panel-exit {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.notification-panel-enter {
+  animation: notification-panel-enter 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.notification-panel-exit {
+  animation: notification-panel-exit 0.34s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@layer components {
+
+  /* Edit Mode Styles - для интерактивного редактирования */
+  .edit-mode-cell {
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    /* Постоянная обводка в режиме редактирования */
+    border: 2px solid hsl(var(--primary) / 0.3);
+    background-color: hsl(var(--primary) / 0.05);
+  }
+
+  .edit-mode-cell:hover {
+    /* Усиление обводки при hover */
+    border-color: hsl(var(--primary) / 0.6);
+    background-color: hsl(var(--primary) / 0.15);
+  }
+
+  /* Flash-анимация при клике на ячейку */
+  @keyframes edit-flash-pulse {
+    0% {
+      border-color: hsl(var(--primary) / 0.8);
+      background-color: hsl(var(--primary) / 0.2);
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.7);
+    }
+
+    50% {
+      border-color: hsl(var(--primary));
+      background-color: hsl(var(--primary) / 0.3);
+      box-shadow: 0 0 20px 4px hsl(var(--primary) / 0.5);
+    }
+
+    100% {
+      border-color: hsl(var(--primary) / 0.5);
+      background-color: hsl(var(--primary) / 0.1);
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+    }
+  }
+
+  .edit-flash {
+    animation: edit-flash-pulse 1.5s ease-out;
+  }
+
+  /* Edit Mode - Filter section highlight animation */
+  @keyframes filter-section-highlight {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+      border-color: transparent;
+    }
+
+    10% {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(99, 102, 241, 0.4);
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+
+    30% {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7), 0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(99, 102, 241, 0.3);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    60% {
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.6), 0 0 20px rgba(99, 102, 241, 0.4);
+      border-color: rgba(99, 102, 241, 0.6);
+    }
+
+    100% {
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 15px rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+  }
+
+  .filter-section-flash {
+    position: relative;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    animation: filter-section-highlight 1.2s ease-out forwards;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.03) 100%);
+    padding: 0.5rem;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  /* Outline-only flash (no padding/background shifts) */
+  .filter-section-flash-outline {
+    position: relative;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+    animation: filter-section-highlight 1.2s ease-out forwards;
+    overflow: hidden;
+  }
+
+  /* Shimmer utility classes */
+  .metallic-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metallic-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(212, 212, 216, 0.3),
+        rgba(255, 255, 255, 0.4),
+        rgba(212, 212, 216, 0.3),
+        transparent);
+    animation: metallic-shine 3s ease-in-out infinite;
+  }
+
+  @keyframes metallic-shine {
+    0% {
+      left: -100%;
+    }
+
+    50%,
+    100% {
+      left: 200%;
+    }
+  }
+
+  /* Float Rank shimmer animations - same pattern as metallic-shimmer */
+  .float-rank-shimmer-gold {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .float-rank-shimmer-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(234, 179, 8, 0.2), rgba(255, 255, 255, 0.35), rgba(234, 179, 8, 0.2), transparent);
+    animation: metallic-shine 3s ease-in-out infinite;
+  }
+
+  .float-rank-shimmer-silver {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .float-rank-shimmer-silver::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(161, 161, 170, 0.2), rgba(255, 255, 255, 0.3), rgba(161, 161, 170, 0.2), transparent);
+    animation: metallic-shine 3s ease-in-out infinite;
+  }
+
+  .float-rank-shimmer-bronze {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .float-rank-shimmer-bronze::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(180, 83, 9, 0.2), rgba(255, 255, 255, 0.35), rgba(180, 83, 9, 0.2), transparent);
+    animation: metallic-shine 3s ease-in-out infinite;
+  }
+
+  /* Blue Gem card shimmer with diamond sparkle - ice blue colors */
+  .bluegem-card-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Main shimmer/fade sweep */
+  .bluegem-card-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(186, 230, 253, 0.3),
+        rgba(255, 255, 255, 0.5),
+        rgba(186, 230, 253, 0.3),
+        transparent);
+    animation: bluegem-fade 3s ease-in-out infinite;
+  }
+
+  /* Diamond sparkles layer */
+  .bluegem-card-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 2px),
+      radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.8) 0%, transparent 2px),
+      radial-gradient(circle at 25% 70%, rgba(255, 255, 255, 0.85) 0%, transparent 2px),
+      radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.75) 0%, transparent 2px),
+      radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.9) 0%, transparent 2px),
+      radial-gradient(circle at 90% 55%, rgba(186, 230, 253, 0.8) 0%, transparent 2px),
+      radial-gradient(circle at 15% 45%, rgba(186, 230, 253, 0.85) 0%, transparent 2px),
+      radial-gradient(circle at 60% 25%, rgba(255, 255, 255, 0.8) 0%, transparent 2px),
+      radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.7) 0%, transparent 2px),
+      radial-gradient(circle at 75% 50%, rgba(255, 255, 255, 0.85) 0%, transparent 2px);
+    animation: diamond-twinkle 2s ease-in-out infinite;
+  }
+
+  @keyframes bluegem-fade {
+    0% {
+      left: -100%;
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 1;
+    }
+
+    90% {
+      opacity: 1;
+    }
+
+    100% {
+      left: 200%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes diamond-twinkle {
+
+    0%,
+    100% {
+      opacity: 0.3;
+    }
+
+    25% {
+      opacity: 0.9;
+    }
+
+    50% {
+      opacity: 0.4;
+    }
+
+    75% {
+      opacity: 1;
+    }
+  }
+
+  /* Fade chip shimmer animation for Active Filters */
+  .fade-chip-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fade-chip-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 200, 150, 0.25),
+        rgba(255, 150, 100, 0.3),
+        transparent);
+    animation: fade-chip-shine 3s ease-in-out infinite;
+  }
+
+  @keyframes fade-chip-shine {
+    0% {
+      left: -100%;
+    }
+
+    50%,
+    100% {
+      left: 200%;
+    }
+  }
+
+  @keyframes fade-text-shimmer {
+
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Blue Gem chip diamond sparkle animation for Active Filters */
+  .blue-gem-chip-sparkle {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blue-gem-chip-sparkle::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.9) 0%, transparent 4%),
+      radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.7) 0%, transparent 3%),
+      radial-gradient(circle at 35% 75%, rgba(255, 255, 255, 0.8) 0%, transparent 3.5%),
+      radial-gradient(circle at 75% 55%, rgba(255, 255, 255, 0.6) 0%, transparent 3%),
+      radial-gradient(circle at 50% 40%, rgba(200, 240, 255, 0.7) 0%, transparent 4%);
+    animation: gem-chip-sparkle 2s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes gem-chip-sparkle {
+
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1) rotate(0deg);
+    }
+
+    25% {
+      opacity: 0.9;
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    50% {
+      opacity: 0.4;
+      transform: scale(0.95) rotate(-1deg);
+    }
+
+    75% {
+      opacity: 1;
+      transform: scale(1.02) rotate(1deg);
+    }
+  }
+
+  /* Souvenir golden shimmer animation */
+  .souvenir-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .souvenir-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(216, 208, 96, 0.15),
+        rgba(228, 220, 112, 0.2),
+        transparent);
+    animation: souvenir-shine 2.5s ease-in-out infinite;
+  }
+
+  @keyframes souvenir-shine {
+    0% {
+      left: -100%;
+    }
+
+    50%,
+    100% {
+      left: 200%;
+    }
+  }
+
+  /* Search highlight - white flash on entire row */
+  @keyframes search-row-highlight {
+    0% {
+      box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0);
+      background: transparent;
+    }
+    10% {
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    30% {
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.07);
+    }
+    60% {
+      box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    100% {
+      box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0);
+      background: transparent;
+    }
+  }
+
+  .search-highlight-row {
+    animation: search-row-highlight 1.5s ease-out forwards;
+  }
+
+  /* Copy to target flash animation */
+  @keyframes copy-flash {
+    0% {
+      background-color: hsl(var(--accent) / 0.6);
+      box-shadow: inset 0 0 0 2px hsl(var(--accent) / 0.8), 0 0 20px hsl(var(--accent) / 0.5);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: inset 0 0 0 2px transparent, 0 0 0 hsl(var(--accent) / 0);
+    }
+  }
+
+  .copy-flash-row {
+    animation: copy-flash 0.8s ease-out forwards;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Premium animations for live monitor cards */
+  @keyframes fadeBadgeFlow {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 0%;
+    }
+  }
+
+  @keyframes fadeBadgeSheen {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  @keyframes blueGemTwinkle {
+    0%, 100% {
+      opacity: 0.45;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .pinned-border-anim {
+    border: 2px solid transparent;
+    background: 
+      linear-gradient(115deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.95) 50%, transparent 60%, transparent 100%) border-box,
+      linear-gradient(135deg, hsl(var(--cs-yellow)) 0%, hsl(var(--cs-orange)) 50%, hsl(var(--cs-yellow)) 100%) border-box;
+    background-size: 200% 100%, 200% 200%;
+    animation: pinnedBorderSweepCombined 3s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  @keyframes pinnedBorderSweepCombined {
+    0% {
+      background-position: 200% 0, 0% 50%;
+    }
+    50% {
+      background-position: 0% 0, 100% 50%;
+    }
+    100% {
+      background-position: -200% 0, 0% 50%;
+    }
+  }
+
+  /* Hover-freeze card frame — a single spark of light orbiting the border.
+     Everything stays on the frame itself, so the card content is never covered. */
+  .frozen-border-anim {
+    border: 2px solid transparent;
+    background:
+      conic-gradient(from var(--frozen-angle, 0deg),
+        transparent 0deg,
+        transparent 250deg,
+        hsl(186 95% 72% / 0.75) 320deg,
+        hsl(190 100% 88%) 350deg,
+        hsl(186 95% 72% / 0.75) 358deg,
+        transparent 360deg) border-box,
+      linear-gradient(135deg, hsl(174 72% 50% / 0.85) 0%, hsl(190 85% 58% / 0.85) 50%, hsl(174 72% 50% / 0.85) 100%) border-box;
+    animation: frozenOrbit 2.8s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  @property --frozen-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes frozenOrbit {
+    to { --frozen-angle: 360deg; }
+  }
+
+  /* Soft outer halo — no inner fill, so nothing washes over the artwork */
+  .frozen-glow {
+    animation: frozenHalo 2.4s ease-in-out infinite;
+  }
+  @keyframes frozenHalo {
+    0%, 100% { box-shadow: 0 0 10px -4px hsl(186 90% 60% / 0.45); }
+    50%      { box-shadow: 0 0 18px -3px hsl(186 90% 60% / 0.7); }
+  }
+
+  /* Snowflake badge spin */
+  .frozen-flake { animation: frozenFlakeSpin 4s linear infinite; }
+  @keyframes frozenFlakeSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Sticker hover overflow and layer boost */
+  .bg-card:has(.group\/sticker:hover) {
+    overflow: visible !important;
+    z-index: 50 !important;
+  }
+  .bg-card:has(.group\/sticker:hover) .overflow-hidden {
+    overflow: visible !important;
+  }
+
+  /* Live Tape Bar styles */
+  .tape-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.401rem;
+    height: 2.006rem;
+    padding-left: 0.669rem;
+    padding-right: 0.669rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 11.2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .tape-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  .tape-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .tape-btn:focus {
+    outline: none;
+  }
+
+  .tape-btn--primary {
+    border-color: rgba(6, 182, 212, 0.3);
+    color: #67e8f9;
+  }
+  .tape-btn--primary:hover:not(:disabled) {
+    border-color: rgba(6, 182, 212, 0.6);
+    background-color: rgba(6, 182, 212, 0.15);
+    color: #22d3ee;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
+  }
+
+  .tape-btn--success {
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #6ee7b7;
+  }
+  .tape-btn--success:hover:not(:disabled) {
+    border-color: rgba(16, 185, 129, 0.6);
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.25);
+  }
+
+  .tape-btn--danger {
+    border-color: rgba(244, 63, 94, 0.3);
+    color: #fda4af;
+  }
+  .tape-btn--danger:hover:not(:disabled) {
+    border-color: rgba(244, 63, 94, 0.6);
+    background-color: rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.25);
+  }
+
+  .tape-btn--warning {
+    border-color: rgba(245, 158, 11, 0.3);
+    color: #fcd34d;
+  }
+  .tape-btn--warning:hover:not(:disabled) {
+    border-color: rgba(245, 158, 11, 0.6);
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+  }
+
+  .tape-btn--info {
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+  }
+  .tape-btn--info:hover:not(:disabled) {
+    border-color: rgba(59, 130, 246, 0.6);
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
+  }
+
+  /* ChipStrip ticker marquee animation */
+  .tape-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    width: max-content;
+    animation: tapeMarquee var(--tape-marquee-duration, 20s) linear infinite;
+  }
+
+  .tape-marquee-paused .tape-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes tapeMarquee {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* Buy Order Panel custom styling */
+  .offer-border-anim {
+    position: relative !important;
+    border-radius: 6px !important;
+    padding: 2px !important;
+    background: linear-gradient(135deg, hsl(var(--cs-yellow)) 0%, hsl(var(--cs-orange)) 50%, hsl(var(--cs-yellow)) 100%) !important;
+    background-size: 200% 200% !important;
+    animation: offerBorderSweep 4s linear infinite !important;
+  }
+
+  @keyframes offerBorderSweep {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .offer-success-shine {
+    background: linear-gradient(115deg, transparent 0%, transparent 35%, rgba(255, 223, 0, 0.45) 50%, transparent 65%, transparent 100%);
+    background-size: 200% 100%;
+    animation: offerShine 2s ease-in-out infinite;
+  }
+
+  @keyframes offerShine {
+    0% {
+      background-position: 150% 0;
+    }
+    100% {
+      background-position: -50% 0;
+    }
+  }
+
+  @keyframes offerPlaneFly {
+    0% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(25px, -25px) scale(0.6);
+      opacity: 0;
+    }
+    50.1% {
+      transform: translate(-25px, 25px) scale(0.6);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Premium animations for Blue Gem and Fire & Ice stickers */
+  @keyframes fire-ice-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .fire-ice-shimmer {
+    position: relative;
+    background-size: 200% 200%;
+    animation: fire-ice-flow 5s ease infinite;
+  }
+
+  .bluegem-crystal-surface {
+    position: relative;
+    background-size: 200% 200%;
+    animation: fire-ice-flow 6s ease infinite;
+  }
+
+  .bluegem-crystal-facets {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 1;
+    background: 
+      linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 18%,
+        rgba(255, 255, 255, 0.4) 28%,
+        rgba(255, 255, 255, 0.65) 30%,
+        rgba(255, 255, 255, 0.4) 32%,
+        transparent 42%,
+        transparent 100%
+      ),
+      linear-gradient(
+        115deg,
+        transparent 0%,
+        transparent 60%,
+        rgba(255, 255, 255, 0.25) 70%,
+        rgba(255, 255, 255, 0.45) 72%,
+        rgba(255, 255, 255, 0.25) 74%,
+        transparent 84%,
+        transparent 100%
+      );
+  }
+
+  .bluegem-foil-glitter {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.95) 0%, transparent 2px),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.9) 0%, transparent 1.5px),
+      radial-gradient(circle at 40% 80%, rgba(255,255,255,0.85) 0%, transparent 2px),
+      radial-gradient(circle at 70% 20%, rgba(255,255,255,0.9) 0%, transparent 1.5px);
+    animation: diamond-twinkle 2.5s ease-in-out infinite;
+  }
+
+  .bluegem-sticker-active {
+    position: relative;
+    box-shadow: 
+      0 0 12px rgba(56, 189, 248, 0.45), 
+      inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Orb & Radar Button Animations */
+  @keyframes radar-sweep {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-radar-sweep {
+    animation: radar-sweep 2s linear infinite;
+    transform-origin: center center;
+  }
+
+  @keyframes orb-ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    75%, 100% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
+  }
+
+  .animate-orb-ping {
+    animation: orb-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes arm-blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .animate-arm-blink {
+    animation: arm-blink 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+      opacity: 1;
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+      opacity: 0.85;
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}

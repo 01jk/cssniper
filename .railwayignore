@@ -1,0 +1,105 @@
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Node modules (фронтенд пересобирается там же)
+node_modules/
+sn1perb0t111-main/node_modules/
+
+# Rust build artifacts (пересобираются на Railway)
+rust-core/target/
+
+# Development tool configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Logs (генерируются при работе)
+logs/
+*.log
+
+# Local database (use Railway persistent volume / PostgreSQL)
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment files (use Railway env vars)
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+sn1perb0t111-main/dist/
+
+# Test / debug files
+*.test.js
+*.spec.js
+__tests__/
+test_*.py
+tmp_*.py
+tmp_*.rs
+check_*.py
+migrate_*.py
+patch_*.py
+debug_*.txt
+detailed_*.txt
+targets_dump.txt
+notifier_test.log
+rust_run*.log
+rust_core.log
+rust_notifier.log
+
+# Large diff / dump files
+diff_*.txt
+
+# Proxy lists (секретные данные через Railway env vars)
+proxy*.txt
+proxyList.txt
+
+# Skin / sticker data (тяжёлые, не нужны при деплое)
+new_stickers.txt
+parsed_*.txt
+clean_skin_names.txt
+Stickers_collections.txt
+
+# Documentation
+README.md
+*.md
+!RAILWAY_DEPLOYMENT.md
+
+# Development configs
+.eslintrc*
+.prettierrc*
+tsconfig*.json
+vitest.config.ts
+*.qwen
+
+# Scratch / temp files
+scratch/
+temp_*.json
+recent.json
+Test_upd_config.json
+bot_stats.json
+proxy_status.json
+*.json.bak
+
+# Misc
+BACKUP TARGET AND FILTER/
+NEW TARGET AND FILTER, ETC/

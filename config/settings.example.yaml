@@ -1,0 +1,23 @@
+analysis:
+  market_price_source: csfloat
+  max_spend_hourly: 0
+  min_balance: 0
+auto_buy:
+  accounts: []
+bot:
+  telegram_bot_token: ""
+  telegram_target_bot_token: ""
+  telegram_chat_id: ""
+market_data:
+  accounts: []
+  proxies: []
+  use_market_proxies: false
+scanner:
+  accounts: []
+  monitoring_proxies: []
+  use_proxies: false
+  api_key: ""
+web_auth:
+  username: ""
+  password: ""
+  secret_key: ""
