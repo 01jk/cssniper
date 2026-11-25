@@ -47,21 +47,30 @@
 ## 🚀 Установка и запуск (Local Development)
 
 ### Требования
-* [Rust & Cargo](https://www.rust-lang.org/tools/install) (версия 1.70+)
+* [Rust & Cargo](https://www.rust-lang.org/tools/install) (версия 1.86.0 из `rust-core/rust-toolchain.toml`)
 * [Node.js](https://nodejs.org/) (версия 18+)
-* Python 3.x (опционально, для работы с legacy-скриптами и миграциями)
+* Python 3 с SQLAlchemy для создания исходных таблиц SQLite
 
 ### 1. Настройка Бэкенда (Rust)
-```bash
-cd rust-core
-```
-Отредактируйте конфигурационные файлы (например, `config/settings.yaml` в корне проекта или соответствующие .env файлы), добавив ваш **API-ключ CSFloat** и настройки Telegram (Token, Chat ID).
 
-Запуск ядра:
+Из корня свежей копии создайте рабочий конфиг из [settings.example.yaml](config/settings.example.yaml). В PowerShell:
+
+```powershell
+Copy-Item config/settings.example.yaml config/settings.yaml
+```
+
+В Linux и macOS используйте `cp config/settings.example.yaml config/settings.yaml`. Задайте собственные `web_auth.username` и `web_auth.password` для входа в панель. Ключ CSFloat задаётся в `scanner.api_key`, настройки уведомлений — в разделе `bot`. Для отдельного второго профиля создайте из того же шаблона `config/settings.config2.yaml`.
+
+Создайте пустую базу из [моделей проекта](database/models.py). Выполните из корня:
+
 ```bash
+python -m pip install "SQLAlchemy>=2.0"
+python -c "from database.database import init_db; init_db()"
+cd rust-core
 cargo run
 ```
-*Бэкенд запустится и начнет отдавать API (по умолчанию на порту 3000 или 8080) и мониторить CSFloat.*
+
+По умолчанию база находится в корне проекта (`cssniper.db`), а API слушает порт `8000`.
 
 ### 2. Настройка Фронтенда
 В новом окне терминала:
@@ -76,7 +85,7 @@ npm install
 ```bash
 npm run dev
 ```
-После этого откройте браузер по ссылке, которую выдаст Vite (обычно `http://localhost:5173`), чтобы получить доступ к панели управления.
+После этого откройте ссылку из терминала Vite. В конфигурации проекта задан `http://localhost:8080`, запросы к `/api` перенаправляются на `127.0.0.1:8000`.
 
 ---
 
@@ -84,7 +93,7 @@ npm run dev
 
 Проект настроен для деплоя на платформе [Railway](https://railway.app/).
 1. Файл `railway.json` в корне проекта указывает платформе, как собирать и запускать Rust-бэкенд.
-2. В Railway необходимо задать переменные окружения, такие как токены, API ключи и путь к базе данных.
+2. На постоянном томе подготовьте рабочий YAML из шаблона и укажите его абсолютный путь в `CONFIG_PATH`, например `/data/settings.yaml`. Для чистой установки создайте `cssniper.db` приведённой выше командой `init_db()` с тем же `CONFIG_PATH`. Rust ищет базу рядом с конфигом. Токены и параметры входа задаются в рабочем YAML.
 3. Логи бэкенда пишутся в консоль и файлы (например, `rust_core.log`), что позволяет удобно мониторить статус в дашборде Railway.
 
 ---
@@ -92,7 +101,7 @@ npm run dev
 ## 🔧 Устранение неполадок (Troubleshooting)
 
 * **403 Forbidden (CSFloat API)**: Убедитесь, что ваш API-ключ добавлен в конфигурацию и имеет правильные права доступа.
-* **429 Too Many Requests**: Вы превысили лимиты API CSFloat. Увеличьте интервал поллинга (`poll_interval_min`) или используйте прокси (`proxyList.txt`).
+* **429 Too Many Requests**: Увеличьте интервал между запросами в разделе `scanner` рабочего конфига.
 * **Ошибка компиляции Rust**: Убедитесь, что у вас установлена последняя стабильная версия Rust (`rustup update`). В логах могут быть предупреждения (например, неиспользуемые поля `float_rank_value` — их можно игнорировать или закомментировать).
 
 ---

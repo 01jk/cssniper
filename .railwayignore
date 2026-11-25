@@ -42,6 +42,9 @@ logs/
 .env
 .env.local
 .env.*.local
+config/*
+!config/settings.example.yaml
+sessions*.json
 
 # Build artifacts
 dist/
@@ -73,10 +76,8 @@ diff_*.txt
 proxy*.txt
 proxyList.txt
 
-# Skin / sticker data (тяжёлые, не нужны при деплое)
+# Unused catalog exports
 new_stickers.txt
-parsed_*.txt
-clean_skin_names.txt
 Stickers_collections.txt
 
 # Documentation
@@ -87,13 +88,13 @@ README.md
 # Development configs
 .eslintrc*
 .prettierrc*
-tsconfig*.json
 vitest.config.ts
 *.qwen
 
 # Scratch / temp files
 scratch/
 temp_*.json
+!scripts/temp_sticker_mapping.json
 recent.json
 Test_upd_config.json
 bot_stats.json
